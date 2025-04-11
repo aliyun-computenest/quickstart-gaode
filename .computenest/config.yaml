@@ -17,7 +17,7 @@ Service:
   ServiceType: private
   ServiceInfo:
     Locale: zh-CN
-    ShortDescription: dify deploy
+    ShortDescription: amap server deploy
     Image: 'resources/icons/service_logo.png'
 Artifact:
   EcsImage:
@@ -32,7 +32,6 @@ Artifact:
 ImageBuilder:
   EcsImage:
     RegionId: ap-southeast-1
-    # 使用最新的LTS版本Alibaba Cloud Linux
     SourceImageId: aliyun_3_x64_20G_alibase_20240819.vhd
     SystemDiskSize: 20
     InstanceType: ecs.c6.large
