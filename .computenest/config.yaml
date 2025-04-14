@@ -12,8 +12,6 @@ Service:
     TemplateConfigs:
       - Name: 单机版
         Url: 'ros_templates/template.yaml'
-        AllowedRegions:
-          - ap-southeast-1
   ServiceType: private
   ServiceInfo:
     Locale: zh-CN
@@ -27,13 +25,11 @@ Artifact:
     ArtifactProperty:
       RegionId: ${ImageBuilder.EcsImage.RegionId}
       ImageId: ${ImageBuilder.EcsImage.SourceImageId}
-    SupportRegionIds:
-      - ap-southeast-1
 ImageBuilder:
   EcsImage:
     RegionId: ap-southeast-1
     SourceImageId: aliyun_3_x64_20G_alibase_20240819.vhd
-    SystemDiskSize: 20
+    SystemDiskSize: 40
     InstanceType: ecs.c6.large
     InternetMaxBandwidthOut: 10
     CommandType: RunShellScript
