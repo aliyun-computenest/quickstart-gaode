@@ -231,14 +231,14 @@ Parameters:
     Label:
       zh-cn: 百炼 API-KEY
       en: BaiLian API-KEY
-  GaoDeApiKey:
+  AmapApiKey:
     Type: String
     Description:
-      zh-cn: 开通百炼模型服务，并获得 API-KEY。请参考： <a href="https://developer.aliyun.com/article/1655158"  target="_blank">获取百炼API-KEY</a>。
-      en: 'Activate BaiLian and obtain the API-KEY. Please refer to:  <a href="https://developer.aliyun.com/article/1655158"  target="_blank">Get BaiLian API-KEY</a>.'
+      zh-cn: 创建高德应用和KEY。请参考： <a href="https://lbs.amap.com/api/mcp-server/create-project-and-key"  target="_blank">创建高德应用和KEY</a>。
+      en: 'KEY. Please refer to:  <a href="https://lbs.amap.com/api/mcp-server/create-project-and-key"  target="_blank">Get Amap KEY</a>.'
     Label:
-      zh-cn: 百炼 API-KEY
-      en: BaiLian API-KEY
+      zh-cn: 高德 MCP Server KEY
+      en: Amap MCP Server KEY
 Resources:
   # 新建vpc
   EcsVpc:
@@ -340,13 +340,17 @@ Resources:
       CommandContent:
         Fn::Sub:
           - |
-
             cd /root/mcp
             cat > /root/mcp/.env << "EOF"
             OPENAI_API_KEY=${BaiLianApiKey}
             EOF
 
-            docker compose restart
+            docker compose down
+            docker compose up -d
+
+            source venv/bin/activate
+            sed -i 's/"AMAP_MAPS_API_KEY": ""/"AMAP_MAPS_API_KEY": "${AmapApiKey}"/g' /root/mcp/config.json
+            mcpo --config config.json --port 8000 &
 
             # 设置需要检查的服务名称
             SERVICE_NAME="open-webui"
@@ -375,14 +379,12 @@ Resources:
               sleep 10
             done
 
-            python3.11 -m venv venv
-            sed -i 's/"AMAP_MAPS_API_KEY": ""/"AMAP_MAPS_API_KEY": "${GaoDeApiKey}"/g' /root/mcp/config.json
-            mcpo --config config.json --port 8000 &
-
           - RegionId:
               Ref: ALIYUN::Region
-            GaoDeApiKey:
-              Ref: GaoDeApiKey
+            AmapApiKey:
+              Ref: AmapApiKey
+            BaiLianApiKey:
+              Ref: BaiLianApiKey
 Outputs:
   open-webui_address:
     Description:
@@ -417,8 +419,9 @@ Metadata:
           default: 服务器基础配置
       - Parameters:
           - BaiLianApiKey
+          - AmapApiKey
         Label:
-          default: 配置百炼服务
+          default: 配置百炼和高德服务
       - Parameters:
           - ZoneId
           - VpcOption
@@ -454,6 +457,7 @@ Metadata:
       CustomFields:
         - Key: InstancePassword
         - Key: BaiLianApiKey
+        - Key: AmapApiKey
       CostRelatedKeys:
         - RegionId
         - PayPeriod
