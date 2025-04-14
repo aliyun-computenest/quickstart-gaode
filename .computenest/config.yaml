@@ -50,7 +50,7 @@ ImageBuilder:
         # 创建mcp目录，用于存放mcp配置文件
         mkdir -p /root/mcp && cd mcp
         # 安装OpenWebUI
-        cat > /root/mcp/docker-compose-1.yaml << "EOF"
+        cat > /root/mcp/docker-compose.yaml << "EOF"
         services:
           open-webui:
             image: ghcr.io/open-webui/open-webui:latest
