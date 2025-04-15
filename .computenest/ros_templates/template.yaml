@@ -346,11 +346,10 @@ Resources:
             EOF
 
             docker compose down
-            docker compose up -d
 
-            source venv/bin/activate
-            sed -i 's/"AMAP_MAPS_API_KEY": ""/"AMAP_MAPS_API_KEY": "${AmapApiKey}"/g' /root/mcp/config.json
-            mcpo --config config.json --port 8000 &
+            sed -i 's/"AMAP_MAPS_API_KEY": ""/"AMAP_MAPS_API_KEY": "${AmapApiKey}"/g' /root/mcpo/config.json
+
+            docker compose up -d
 
             # 设置需要检查的服务名称
             SERVICE_NAME="open-webui"
