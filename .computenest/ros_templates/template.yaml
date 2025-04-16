@@ -340,7 +340,7 @@ Resources:
       CommandContent:
         Fn::Sub:
           - |
-            cd /root/mcp
+            cd /root/mcpo
             cat > /root/mcpo/.env << "EOF"
             OPENAI_API_KEY=${BaiLianApiKey}
             EOF
@@ -361,7 +361,7 @@ Resources:
             check_health_status() {
               STATUS=$(docker inspect --format='{{.State.Health.Status}}' $CONTAINER_ID)
 
-              if [ "$STATUS" == "healthy" ]; then
+              if [ "$STATUS" = "healthy" ]; then
                 echo "Container $SERVICE_NAME is healthy."
                 return 0
               else
