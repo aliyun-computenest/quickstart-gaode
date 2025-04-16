@@ -341,7 +341,7 @@ Resources:
         Fn::Sub:
           - |
             cd /root/mcp
-            cat > /root/mcp/.env << "EOF"
+            cat > /root/mcpo/.env << "EOF"
             OPENAI_API_KEY=${BaiLianApiKey}
             EOF
 
