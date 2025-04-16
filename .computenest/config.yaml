@@ -47,7 +47,7 @@ ImageBuilder:
         git clone https://github.com/open-webui/mcpo.git
         cd /root/mcpo
 
-        sed -i 's/CMD \["--help"\]/CMD ["--config", ".\/config.json", "--port", "8000"]/g' Dockerfile
+        sed -i 's/CMD \["--help"\]/CMD ["--config", ".\/config.json", "--port", "8000", "--host", "0.0.0.0"]/g' Dockerfile
 
         cat > /root/mcpo/config.json << EOF
         {
@@ -85,7 +85,7 @@ ImageBuilder:
             ports:
               - "8000:8000"
             volumes:
-              - ./config.json:/config.json
+              - ./config.json:/app/config.json
             restart: unless-stopped
         volumes:
           ollama: {}
