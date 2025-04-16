@@ -59,19 +59,6 @@ Open WebUI面板在阿里云上的费用主要涉及：
     ![login.png](login.jpg)
 
 
-## 运行MCP server
-
-1. 远程连接ECS，执行以下命令启动MCP server:
-    ```shell
-    sudo su
-    cd /root/mcp
-    source venv/bin/activate
-    mcpo --config config.json --port 8000 &
-    ```
-    ![login.png](deploy_3.jpg)
-
-
-
 ## 在open webui前端设置
 1. 点击“设置”，点击“工具”。
 2. 如果您是使用ECS的公网IP地址，在填写工具的地址时，应填写http://<ECS IP地址>:8000/amap-maps，而非localhost
